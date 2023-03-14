@@ -6,12 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.medassi.resto.entities.Menu;
 import com.medassi.resto.entities.Plat;
+import com.medassi.resto.services.IMenuService;
 import com.medassi.resto.services.IPlatService;
 
 @RestController
 public class RestoController {
 	@Autowired IPlatService platService ;
+	@Autowired IMenuService menuService ;
 	
 	
 	@GetMapping("/")
@@ -19,12 +22,12 @@ public class RestoController {
 		return "coucou" ;
 	}
 	@GetMapping("/listPlats")
-	public String list() {
-		String s = "" ;
+	public String listP() {
+		String s = "<ul>" ;
 		for(Plat p : platService.lister()) {
-			s+=p.getNom()+" "+p.getPx() +"<br>" ;
+			s+="<li>"+p.getNom()+" "+p.getPx() +"</li>" ;
 		}
-		return s ;
+		return s+"</ul>" ;
 	}
 	@GetMapping("/addPlat/{nom}/{px}")
 	public String addPlat(@PathVariable(name = "nom") String nom ,
@@ -32,6 +35,14 @@ public class RestoController {
 		Plat p = new Plat(nom,px) ;
 		platService.sauvegarder(p) ;
 		return nom + "-" +px ;
+	}
+	@GetMapping("/listMenus")
+	public String listM() {
+		String s = "<ul>" ;
+		for(Menu m : menuService.lister()) {
+			s+="<li>"+m.getNom()+" "+m.getPx() +" ("+m.getPxALaCarte()+") </li>" ;
+		}
+		return s+"</ul>" ;
 	}
 
 
