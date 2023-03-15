@@ -48,7 +48,7 @@ public class DataInject implements CommandLineRunner{
 		
 	}
 	private void creerUtilisateurs() {
-		Utilisateur u1 = new Utilisateur("totoCuisto", "TCUISTO", "Toto", "Toto", Role.CUISTO) ;
+		Utilisateur u1 = new Utilisateur("toto", "TOTO", "Toto", "pass", Role.CUISTO) ;
 		utilisateurService.sauvegarder(u1); 
 	}
 
