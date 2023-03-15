@@ -28,14 +28,16 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(auth -> auth
-				.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll())
+		http.authorizeHttpRequests(a -> a.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll())
 		.headers(headers -> headers.frameOptions().disable())
-		.csrf(csrf -> csrf
-				.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")));
-		
-		http.authorizeHttpRequests(auth -> auth
-				.requestMatchers(AntPathRequestMatcher.antMatcher("/**")).permitAll() ) ;
+		.csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")));
+		http.authorizeHttpRequests(a -> a.requestMatchers(AntPathRequestMatcher.antMatcher("/listMenus")).permitAll() ) ;
+		http.authorizeHttpRequests(a -> a.requestMatchers(AntPathRequestMatcher.antMatcher("/listPlats")).permitAll() ) ;
+		http.authorizeHttpRequests(a -> a.requestMatchers(AntPathRequestMatcher.antMatcher("/addMenu/**"))
+				.hasAuthority(Role.PROPRIO.toString())) ;
+		http.authorizeHttpRequests(a -> a.requestMatchers(AntPathRequestMatcher.antMatcher("/addPlat/**"))
+				.hasAnyAuthority(Role.PROPRIO.toString(),Role.CUISTO.toString())) ;
+		http.authorizeHttpRequests(a -> a.requestMatchers(AntPathRequestMatcher.antMatcher("/")).permitAll()) ;
 		http.logout() ;
 		http.formLogin() ;
 		return http.build();

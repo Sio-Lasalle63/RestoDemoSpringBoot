@@ -24,8 +24,6 @@ public class Utilisateur implements UserDetails{
 		super() ;
 	}
 	
-	
-	
 	public Utilisateur(String login, String nom, String prenom, String pass, Role role) {
 		super();
 		this.login = login;
