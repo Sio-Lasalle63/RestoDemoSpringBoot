@@ -45,7 +45,11 @@ public class Menu {
 	}
 	
 	public float getPxALaCarte() {
-		return 0 ;
+		float total = 0 ;
+		for( Plat p : this.lesPlats) {
+			total+=p.getPx() ;
+		}
+		return total ;
 		
 	}
 
