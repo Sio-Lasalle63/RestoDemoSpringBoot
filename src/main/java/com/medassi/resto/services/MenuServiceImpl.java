@@ -21,6 +21,10 @@ public class MenuServiceImpl implements IMenuService {
 	public List<Menu> lister() {
 		return menuRepository.findAll() ;
 	}
+	@Override
+	public Menu rechercher(int id) {
+		return menuRepository.findById(id).get() ;
+	}
 	
 
 }

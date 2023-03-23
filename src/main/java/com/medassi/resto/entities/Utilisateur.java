@@ -29,16 +29,15 @@ public class Utilisateur implements UserDetails{
 		this.login = login;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.pass = new BCryptPasswordEncoder().encode(pass);
+		this.pass = pass;
 		this.role = role;
 	}
-
-
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> sesHabilitations = new ArrayList<>() ;
-		SimpleGrantedAuthority habilitation = new SimpleGrantedAuthority(role.toString()) ;
+		SimpleGrantedAuthority habilitation = new SimpleGrantedAuthority(role.name()) ;
+		System.out.println(role.name());
 		sesHabilitations.add(habilitation) ;
 		return sesHabilitations;
 	}
@@ -66,7 +65,9 @@ public class Utilisateur implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
-	
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
 	
 	
 }

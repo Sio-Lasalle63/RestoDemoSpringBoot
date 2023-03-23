@@ -17,22 +17,24 @@ public class Menu {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id ;
 	private String nom ;
-	private float px ;
+	private Float px ;
 	@OneToMany
 	@JoinColumn(name="id_menu")
 	private List<Plat> lesPlats = new ArrayList<>();
-	
-	public Menu(String nom, float px) {
+
+	public Menu(String nom, Float px) {
 		super();
 		this.nom = nom;
 		this.px = px;
 	}
-
+	public int getId() {
+		return id;
+	}
 
 	public String getNom() {
 		return nom;
 	}
-	public float getPx() {
+	public Float getPx() {
 		return px;
 	}
 
@@ -43,14 +45,14 @@ public class Menu {
 	public List<Plat> getLesPlats() {
 		return lesPlats;
 	}
-	
+
 	public float getPxALaCarte() {
 		float total = 0 ;
 		for( Plat p : this.lesPlats) {
 			total+=p.getPx() ;
 		}
 		return total ;
-		
+
 	}
 
 }

@@ -11,8 +11,8 @@ public class Plat {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id ;
 	private String nom ;
-	private float px ;
-	public Plat(String nom, float px) {
+	private Float px ;
+	public Plat(String nom, Float px) {
 		super();
 		this.nom = nom;
 		this.px = px;
@@ -24,7 +24,7 @@ public class Plat {
 	public String getNom() {
 		return nom;
 	}
-	public float getPx() {
+	public Float getPx() {
 		return px;
 	}
 	

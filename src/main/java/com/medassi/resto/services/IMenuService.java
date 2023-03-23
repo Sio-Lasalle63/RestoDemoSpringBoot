@@ -8,4 +8,7 @@ public interface IMenuService {
 	public void sauvegarder(Menu m) ;
 
 	public List<Menu> lister();
+
+	public Menu rechercher(int id);
+
 }

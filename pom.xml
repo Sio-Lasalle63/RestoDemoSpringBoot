@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.4</version>
+		<version>3.0.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.medassi</groupId>
@@ -15,6 +15,7 @@
 	<name>Resto</name>
 	<description>Menus et plats</description>
 	<properties>
+		<jakarta-servlet.version>5.0.0</jakarta-servlet.version>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>

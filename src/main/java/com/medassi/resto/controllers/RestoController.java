@@ -2,54 +2,51 @@ package com.medassi.resto.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.medassi.resto.entities.Menu;
 import com.medassi.resto.entities.Plat;
 import com.medassi.resto.services.IMenuService;
 import com.medassi.resto.services.IPlatService;
 
-@RestController
+@Controller
 public class RestoController {
 	@Autowired IPlatService platService ;
 	@Autowired IMenuService menuService ;
 
-	@GetMapping("/")
+	@GetMapping(value = {"/","/index"})
 	public String index() {
-		return "Bienvenue au resto" ;
+		return "index" ;
 	}
-	@GetMapping("/listPlats")
-	public String listP() {
-		/*String s = "<ul>" ;
-		for(Plat p : platService.lister()) {
-			s+="<li>"+p.getNom()+" "+p.getPx() +"</li>" ;
-		}
-		return s+"</ul>" ;*/
-		return "listPlats" ;
+	@GetMapping("/plats")
+	public String listPlats(Model m) {
+		m.addAttribute("plats", platService.lister());
+		return "plats" ;
 	}
-	@GetMapping("/listMenus")
-	public String listM() {
-		/*String s = "<ul>" ;
-		for(Menu m : menuService.lister()) {
-			s+="<li>"+m.getNom()+" "+m.getPx() +" ("+m.getPxALaCarte()+") </li>" ;
-		}
-		return s+"</ul>" ;*/
-		return "listMenus" ;
+	
+	@GetMapping("/menus")
+	public String listMenus(Model m) {
+		m.addAttribute("menus", menuService.lister());
+		return "menus" ;
 	}
-	@GetMapping("/addPlat/{nom}/{px}")
-	public String addPlat(@PathVariable(name = "nom") String nom ,
-			@PathVariable(name = "px") float px ) {
+	
+	@GetMapping("/menus/{id}")
+	public String listMenusPlats(@PathVariable int id , Model  m) {
+		m.addAttribute("plats", menuService.rechercher(id).getLesPlats());
+		return "plats" ;
+	}
+	
+	@PostMapping("/addPlat")
+	public String addPlat(@RequestParam String nom ,
+			@RequestParam Float px ) {
 		Plat p = new Plat(nom,px) ;
+		System.out.println("On ajoute le plat");
 		platService.sauvegarder(p) ;
-		return nom + "-" +px ;
+		return "index" ;
 	}
-	@GetMapping("/addMenu")
-	public String addMenu( ) {
-		return "Ajout menu";
-	}
-
-
-
+	
 }
